@@ -1,0 +1,28 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.5.1
+    container_name: elasticsearch
+    networks:
+    - net-es
+    volumes:
+    - ./data:/usr/share/elasticsearch/data　　#这里将elasticsearch的数据文件映射本地，以保证下次如果删除了容器还有数据
+    environment:
+    - discovery.type=single-node
+    ports:
+    - "9200:9200"
+ 
+  elastichd:
+    image: containerize/elastichd:latest
+    container_name: elasticsearch-hd
+    networks:
+    - net-es
+    ports:
+      - "9800:9800"
+    depends_on:
+      - "elasticsearch"
+    links:
+      - "elasticsearch:demo" #这里要注意，es和eshd要在相同网络才能被links
+networks:
+  net-es:
+    external: false

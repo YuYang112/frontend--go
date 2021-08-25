@@ -1,0 +1,13 @@
+server:
+  name: es
+  port: :9010
+  host: 127.0.0.1
+databases:
+  host: 127.0.0.1
+  port: 5432
+  user:     postgres
+  password: 123456
+  database: postgres
+  poolSize: 20
+  slow:     50
+
